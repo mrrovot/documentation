@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
+    "version": "0.0.1",
+    "title": "TurtlePay Public API Interface",
+    "contact": {
+      "email": "turtlepay@protonmail.com"
+    },
+    "license": {
+      "name": "GNU Affero General Public License version 3",
+      "url": "https://opensource.org/licenses/AGPL-3.0"
+    }
+  },
+  "host": "api.turtlepay.io",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Payment Requests"
+    }
+  ],
+  "paths": {
+    "/new": {
+      "post": {
+        "tags": [
+          "Payment Requests"
+        ],
+        "summary": "Creates a new payment request",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "PaymentRequest",
+            "description": "Creates a new payment request",
+            "schema": {
+              "type": "object",
+              "required": [
+                "address",
+                "amount"
+              ],
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "callback": {
+                  "type": "string"
+                },
+                "confirmations": {
+                  "type": "number"
+                },
+                "userDefined": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment Request Created Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sendToAddress": {
+                  "type": "string",
+                  "description": "The address to provide the user to send funds to"
+                },
+                "atomicAmount": {
+                  "type": "number",
+                  "description": "The atomic amount that the user needs to send to complete the request"
+                },
+                "startHeight": {
+                  "type": "number",
+                  "description": "The blockchain height that we will start looking for transactions to complete the request"
+                },
+                "endHeight": {
+                  "type": "number",
+                  "description": "The blockchain height that we will stop looking for transactions to complete the request"
+                },
+                "confirmations": {
+                  "type": "number",
+                  "description": "The number of confirmations that we will wait to pass once we find transactions destined for this request"
+                },
+                "qrCode": {
+                  "type": "string",
+                  "description": "A link to a QR code image that contains the required payment information to complete this request"
+                },
+                "userDefined": {
+                  "type": "object",
+                  "description": "A copy of the data you supplied in the optional userDefined field"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client Sent an Invalid Request"
+          },
+          "500": {
+            "description": "Service failed to create the request in the platform"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "TurtlePay GitHub Organization",
+    "url": "https://github.com/TurtlePay"
+  }
+}
