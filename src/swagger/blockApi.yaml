@@ -1,0 +1,782 @@
+swagger: "2.0"
+info:
+  description: This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.
+  version: 0.0.1
+  title: TurtlePay Blockchain Cache API
+  contact:
+    email: turtlepay@protonmail.com
+  license:
+    name: GNU Affero General Public License version 3
+    url: 'https://opensource.org/licenses/AGPL-3.0'
+consumes:
+  - application/json
+produces:
+  - application/json
+host: 'blockapi.turtlepay.io'
+tags:
+  - name: Chain/Cache Information
+  - name: Block Information
+  - name: Transaction Information
+  - name: Wallet Operations
+schemes: 
+  - https
+paths:
+  /amounts:
+    get:
+      tags:
+        - Chain/Cache Information
+      summary: Returns the current mixable amounts on the network
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                timestamp:
+                  type: integer
+                height:
+                  type: integer
+                txnHash:
+                  type: string
+                hash:
+                  type: string
+        404:
+          description: Mixable amounts not found
+  /height:
+    get:
+      tags:
+        - Chain/Cache Information
+      summary: Returns the blockchain cache current height
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              height:
+                type: integer
+                example: 1129669
+              network_height:
+                type: integer
+                example: 1129669
+        500:
+          description: Internal Server Error
+  /info:
+    get:
+      tags:
+        - Chain/Cache Information
+      summary: Returns current network information regarding the underlying network node(s)
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              alt_blocks_count:
+                type: integer
+                example: 2
+              difficulty:
+                type: integer
+                example: 3115454145
+              grey_peerlist_size:
+                type: integer
+                example: 1089
+              hashrate:
+                type: integer
+                example: 103848471
+              height:
+                type: integer
+                example: 1129673
+              incoming_connections_count:
+                type: integer
+                example: 31
+              last_known_block_index:
+                type: integer
+                example: 1129671
+              major_version:
+                type: integer
+                example: 4
+              minor_version:
+                type: integer
+                example: 0
+              network_height:
+                type: integer
+                example: 1129673
+              outgoing_connections_count:
+                type: integer
+                example: 8
+              start_time:
+                type: integer
+                example: 1546895003
+              status:
+                type: string
+                example: OK
+              supported_height:
+                type: integer
+                example: 1000000
+              synced:
+                type: boolean
+                example: true
+              testnet:
+                type: boolean
+                example: false
+              tx_count:
+                type: integer
+                example: 1598886
+              tx_pool_size:
+                type: integer
+                example: 2
+              upgrade_heights:
+                type: array
+                items:
+                  type: integer
+                  example: 
+                    - 187000
+                    - 350000
+                    - 440000
+                    - 620000
+                    - 700000
+                    - 800000
+                    - 1000000
+                    - 1200000
+                    - 1400000
+                    - 1600000
+                    - 1800000
+                    - 2000000
+              version:
+                type: string
+                example: 0.12.0
+              white_peerlist_size:
+                type: integer
+                example: 38
+        500:
+          description: Internal Server Error
+  /supply:
+    get:
+      tags:
+        - Chain/Cache Information
+      summary: Returns the current circulating currency supply in TRTL
+      produces:
+        - text/plain
+      responses:
+        200:
+          description: OK
+          schema:
+            type: string
+            example: 33090018087.69
+        500:
+          description: Internal Server Error
+  /block/count:
+    get:
+      tags:
+        - Block Information
+      summary: Returns the total number of blocks in the cache
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Block Count
+          schema:
+            type: object
+            properties:
+              blockCount:
+                type: integer
+                example: 1129692
+        500:
+          description: Internal Server Error
+  /block/{term}:
+    get:
+      tags:
+        - Block Information
+      summary: Returns the block information for the block with the specified hash or height
+      parameters:
+        - name: term
+          description: Either the height of the block or the hash
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Block%20Detail'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+  /block/header/{term}:
+    get:
+      tags:
+        - Block Information
+      summary: Returns the block header for the block with the specified hash or height
+      parameters:
+        - name: term
+          description: Either the height of the block or the hash
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Block%20Header'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+  /block/header/top:
+    get:
+      tags:
+        - Block Information
+      summary: Returns the top block header
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Block%20Header'
+        500:
+          description: Internal Server Error
+  /block/headers/{height}:
+    get:
+      tags:
+        - Block Information
+      summary: Returns details regarding the 30 blocks preceeding the specified block including the specified block
+      parameters:
+        - name: height
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            maxItems: 30
+            items:
+              $ref: '#/definitions/Block%20Summary'
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /block/headers/{height}/bulk:
+    get:
+      tags:
+        - Block Information
+      summary: Returns details regarding the 1,000 blocks preceeding the specified block including the specified block
+      parameters:
+        - name: height
+          in: path
+          type: integer
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            maxItems: 1000
+            items:
+              $ref: '#/definitions/Block%20Summary'
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /transaction/pool:
+    get:
+      tags:
+        - Transaction Information
+      summary: Returns the transactions currently in the mempool
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                txnHash:
+                  type: string
+                  example: 375837ed9a78873ac6819b27c6f8b1b2614ce1a0ce56375e735c338baddb3d2c
+                fee:
+                  type: integer
+                  example: 100
+                size:
+                  type: integer
+                  example: 6126
+                amount:
+                  type: integer
+                  example: 5910218
+        500:
+          description: Internal Server Error
+  /transaction/{hash}:
+    get:
+      tags:
+        - Transaction Information
+      summary: Returns details regarding the transaction with the specified hash
+      parameters:
+        - name: hash
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Transaction'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+  /transaction/{hash}/inputs:
+    get:
+      tags:
+        - Transaction Information
+      summary: Returns the transcations inputs for the transaction with the specified hash
+      parameters:
+        - name: hash
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction%20Input'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+  /transaction/{hash}/outputs:
+    get:
+      tags:
+        - Transaction Information
+      summary: Returns the transcations outputs for the transaction with the specified hash
+      parameters:
+        - name: hash
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction%20Output'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error
+  /transactions/{paymentId}:
+    get:
+      tags:
+        - Transaction Information
+      summary: Returns the transcations hashes of all transactions with the specified paymentId
+      parameters:
+        - name: paymentId
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                hash:
+                  type: string
+                  example: 2ed24b81b0b51b86223002e8515b141b8a4b09215be2afa86de46153fa8f2167
+                mixin:
+                  type: integer
+                  example: 4
+                timestamp:
+                  type: integer
+                  example: 1521317601
+                fee:
+                  type: integer
+                  example: 10
+                size:
+                  type: integer
+                  example: 22639
+                amount:
+                  type: integer
+                  example: 2048090
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /randomOutputs:
+    post:
+      tags:
+        - Wallet Operations
+      summary: Returns random outputs for transaction mixing
+      parameters:
+        - in: body
+          name: ""
+          description: Provides a request for random outputs from the chain that meet the requirements
+          schema:
+            type: object
+            required:
+              - amounts
+            properties:
+              amounts:
+                type: integer
+                example:
+                  - 1000
+                  - 5000
+                  - 20000
+              mixin:
+                type: integer
+                example: 3
+                default: 3
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Random%20Output'
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /sendrawtransaction:
+    post:
+      tags:
+        - Wallet Operations
+      summary: Returns all the necessary information for a wallet to discover which outputs belong to it
+      parameters:
+        - in: body
+          name: ""
+          description: Provides a transaction that needs to be broadcast to the network
+          schema:
+            type: object
+            properties:
+              tx_as_hex:
+                type: string
+                example: 010001026404d48008fff717d2872294b71e51b8304ed711c0fe240a2614610cc0380a5d0b8b13e2652e6c062fbb056b7f1f015a027b2288942d52247932af36dc1d722da61f296089015b83d591f5a71afafa948021015af0c037fcfe8c50f1e11876c98338fe664c85bc11cd696bc04c988b5669deda96a4299dd9cb471795d079da82e25827badcd79400b394e7c51b67c662d0fc03204a3967aa2bc90708c97cc0370597ad9e154dc7d418ab71b981f8bb805cc603bde2fcb1025bb8b7a04e5e5168cebd724c920fcbb3399210543db9cf7ef9440fa0f11f5a2ea908da1f60f359ab2af2f79783b2111362260fc8d562b268dd350dcb07941d179f34cfd43a3b8d689db6ff453fce4e987a537a528a80f011217e0460434e52da411e8760b10c34a3b63236eb966273a26a3ad3fc7a863a3b6bc508b16cc7763b28743f4ba5a9711e95eeb95762aa6e9c79725170d42fc8968dcd051d2eef49e1726db2fd92e76c47455efff52fc0b473899acaff169316f9654802
+      responses:
+        200:
+          description: OK - Check the status property for the result of the daemon interaction
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: 'OK'
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+  /sync:
+    post:
+      tags:
+        - Wallet Operations
+      summary: Returns all the necessary information for a wallet to discover which outputs belong to it
+      parameters:
+        - in: body
+          name: ""
+          description: A syncronization request. Either lastKnownBlockHashes or scanHeight is required.
+          schema:
+            type: object
+            properties:
+              lastKnownBlockHashes:
+                type: array
+                items:
+                  type: string
+                  example:
+                    - b226a29c8ea906d89ecda798993888307e2f9da86eb3787a63c9adb388c47bc1
+                    - b5b53a17371e3681f1ded1ddd20339f8c95f54e7774c4fb759db3367c5e75a2d
+              blockCount:
+                type: integer
+                example: 100
+                default: 100
+              scanHeight:
+                type: integer
+                example: 1100000
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Wallet%20Sync%20Block'
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+definitions:
+  'Block Detail':
+    allOf:
+      - $ref: '#/definitions/Block%20Header'
+      - properties:
+          transactions:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction%20Header'
+  'Block Header':
+    properties:
+      hash:
+        type: string
+        example: b226a29c8ea906d89ecda798993888307e2f9da86eb3787a63c9adb388c47bc1
+      prevHash:
+        type: string
+        example: b5b53a17371e3681f1ded1ddd20339f8c95f54e7774c4fb759db3367c5e75a2d
+      height:
+        type: integer
+        example: 1129696
+      baseReward:
+        type: integer
+        example: 2881614
+      difficulty:
+        type: integer
+        example: 3668838478
+      majorVersion:
+        type: integer
+        example: 4
+      minorVersion:
+        type: integer
+        example: 0
+      nonce:
+        type: integer
+        example: 1412340624
+      size:
+        type: integer
+        example: 8359
+      timestamp:
+        type: integer
+        example: 1546912440
+      alreadyGeneratedCoins:
+        type: integer
+        example: 3309050796227
+      alreadyGeneratedTransactions:
+        type: integer
+        example: 2728607
+      reward:
+        type: integer
+        example: 2881824
+      sizeMedian:
+        type: integer
+        example: 309
+      totlaFeeAmount:
+        type: integer
+        example: 210
+      transactionsCumulativeSize:
+        type: integer
+        example: 8144
+      transactionCount:
+        type: integer
+        example: 4
+      depth:
+        type: integer
+        example: 12
+  'Block Summary':
+    properties:
+      size:
+        type: integer
+        example: 12489
+      difficulty:
+        type: integer
+        example: 664181705
+      hash:
+        type: string
+        example: cec44b86eec8e26cfbe1b78fa50c893ffef90fe4c7b0d6f0b17d6c290f98cce7
+      height:
+        type: integer
+        example: 1000000
+      timestamp:
+        type: integer
+        example: 1543009724
+      tx_count:
+        type: integer
+        example: 2
+  'Random Output':
+    properties:
+      amount:
+        type: integer
+        example: 1000
+      outs:
+        type: array
+        items:
+          type: object
+          properties:
+            global_amount_index:
+              type: integer
+              example: 947527
+            out_key:
+              type: string
+              example: a88f6bc8deb39414e00ed04d9bcdd0dc1f22a3673d222b482634c0e607ffd4fb
+  'Wallet Sync Block':
+    properties:
+      blockHash:
+        type: string
+        example: cec44b86eec8e26cfbe1b78fa50c893ffef90fe4c7b0d6f0b17d6c290f98cce7
+      height:
+        type: integer
+        example: 1000000
+      timestamp:
+        type: integer
+        example: 1543009724
+      transactions:
+        type: array
+        items:
+          type: object
+          properties:
+            hash:
+              type: string
+              example: fdf5c761c116d1c291b691d1f696a19e4a422ac0970f41af1cd38cd8a64d75a7
+            publicKey:
+              type: string
+              example: 00a45147725a871df09e1bd73a543d0eb95d81c158077da2dadde089f89016d0
+            unlockTime:
+              type: integer
+              example: 0
+            paymentId:
+              type: string
+              example: 487b9be44dbe529e626ce5287ed387638fe6b208f15ee72a9807ad65719a169d
+            inputs:
+              type: array
+              items:
+                type: object
+                properties:
+                  keyImage:
+                    type: string
+                    example: 5f279712ba438978cf48521914880e21a6be990e644a2a5986dbeda0966c5891
+                  amount:
+                    type: integer
+                    example: 1
+                  type:
+                    type: string
+                    example: '02'
+            outputs:
+              type: array
+              items:
+                type: object
+                properties:
+                  index:
+                    type: integer
+                    example: 0
+                  globalIndex:
+                    type: integer
+                    example: 231283
+                  key:
+                    type: string
+                    example: d1e663304b3cb396fe279631dc3d10f56a0333cc39840a4fbd9957eef58b52fb
+                  amount:
+                    type: integer
+                    example: 9
+                  type:
+                    type: string
+                    example: '02'
+  'Transaction':
+    properties:
+      tx: 
+        type: object
+        allOf:
+          - $ref: '#/definitions/Transaction%20Header'
+          - properties:
+              mixin:
+                type: integer
+                example: 4
+              paymentId:
+                type: string
+              extra:
+                type: string
+              unlock_time:
+                type: integer
+                example: 0
+              nonce:
+                type: string
+              publicKey:
+                type: string
+                example: a64193a1718ad9f716ef9f771419319df54f108330da313d24469099dc6d573f
+              inputs:
+                type: array
+                items:
+                  $ref: '#/definitions/Transaction%20Input'
+              outputs:
+                type: array
+                items:
+                  $ref: '#/definitions/Transaction%20Output'
+      block:
+        type: object
+        properties:
+          cumul_size:
+            type: integer
+            example: 12588
+          difficulty:
+            type: integer
+            example: 3369493820
+          hash:
+            type: string
+            example: fe207be47b035cba0951cfd1cd54c17d035cb2efe6f2b460f2b462c43678f567
+          height:
+            type: integer
+            example: 1129743
+          timestamp:
+            type: integer
+            example: 1546913815
+          tx_count:
+            type: integer
+            example: 3
+          depth:
+            type: integer
+            example: 4
+  'Transaction Header':
+    properties:
+      amount_out:
+        type: integer
+        example: 2892781
+      fee:
+        type: integer
+        example: 0
+      hash:
+        type: string
+        example: 4fa7d427f9564edd81c0b486cfa2ae5e6c3c40cfac1c8644f77a8c7ca423ab34
+      size:
+        type: integer
+        example: 309
+  'Transaction Input':
+    properties:
+      keyImage:
+        type: string
+        example: 305b6353534330a2b7b9ffcd3261793a60fc5702dc3c794a6d01933b5ac2b9d4
+      amount:
+        type: integer
+        example: 8
+      type:
+        type: string
+        example: '02'
+  'Transaction Output':
+    properties:
+      outputIndex:
+        type: integer
+        example: 0
+      globalIndex:
+        type: integer
+        example: 234011
+      amount:
+        type: integer
+        example: 8
+      key:
+        type: string
+        example: 1743473429337ed93bf51af860226684228e64953631e000ec4e32116ff9ad53
+      type:
+        type: string
+        example: '02'
+
+externalDocs:
+  description: TurtlePay GitHub Organization
+  url: "https://github.com/TurtlePay"
+        
