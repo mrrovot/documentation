@@ -14,6 +14,9 @@
   },
   "host": "api.turtlepay.io",
   "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
   "tags": [
     {
       "name": "Payment Requests"

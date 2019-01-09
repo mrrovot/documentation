@@ -10,6 +10,8 @@ info:
     url: 'https://opensource.org/licenses/AGPL-3.0'
 host: 'api.turtlepay.io'
 basePath: /v1
+schemes: 
+  - https
 tags:
   - name: Payment Requests
 paths:
