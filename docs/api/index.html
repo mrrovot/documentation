@@ -1,332 +1,121 @@
 <!DOCTYPE html>
-<html>
+<!-- HTML for static distribution bundle build -->
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="main.css">
-    <meta charset="UTF-8">
-    <title>TurtlePay Public API Interface</title>
-                                                         </head>
+  <meta charset="UTF-8">
+  <title>TurtlePay Blockchain Cache API Documentation</title>
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Roboto,sans-serif;
+    font-size: 9px;
+    line-height: 1.42857143;
+    color: #444;
+    margin: 0px;
+  }
+
+  #swagger-editor {
+    font-size: 1.3em;
+  }
+
+  .container {
+    height: 100%;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #editor-wrapper {
+    height: 100%;
+    border:1em solid #000;
+    border:none;
+  }
+
+  .Pane1 {
+    display: none;
+  }
+
+  .SplitPane {
+    position: relative !important;
+    display: block !important;
+  }
+
+  .Pane2 {
+    overflow-y: auto;
+    width: 100% !important;
+  }
+
+  .info .main .link {
+    display: none;
+  }
+  
+  .dd-menu {
+    display: none !important;
+  }
+
+  </style>
+  <link href="./dist/swagger-editor.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./dist/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="./dist/favicon-16x16.png" sizes="16x16" />
+</head>
+
 <body>
-<div class="container">
-    <h1>TurtlePay Public API Interface</h1>
-    <p class="sw-info">
-        Base URL: <span class="sw-info-basePath">/v1</span>,
-        Version: <span class="sw-info-version">0.0.1</span>,     <a href="https://github.com/TurtlePay" class="sw-external-doc">TurtlePay GitHub Organization</a>
-    
-    </p>
-    <p><p>This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.</p>
-    </p>
-    
-    
-    <div id="sw-schemes" class="sw-default-value">
-        <span class="sw-default-value-header">Schemes:</span>
-        
-    </div>
-    
-        <h2 id="swagger--summary-no-tags">Summary</h2>
-        <table class="table table-bordered table-condensed swagger--summary">
-            <thead>
-            <tr>
-                <th>Path</th>
-                <th>Operation</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                            <td class="swagger--summary-path" rowspan="1">
-                                <a href="#path--new">/new</a>
-                            </td>
-                        <td>
-                            <a href="#operation--new-post">POST</a>
-                        </td>
-                        <td>
-                            <p>Creates a new payment request</p>
-        
-                        </td>
-                    </tr>
-            </tbody>
-        </table>
-    
-    
-    
-    <h2>Paths</h2>
-    
-        
-        <span id="path--new"></span>
-            <div id="operation--new-post" class="swagger--panel-operation-post panel">
-                <div class="panel-heading">
-                    <div class="operation-summary">Creates a new payment request</div>
-                    <h3 class="panel-title"><span class="operation-name">POST</span> <strong>/new</strong></h3>
-                        Tags:
-                            <a href="#tag-Payment-Requests">Payment Requests</a>
-                </div>
-                <div class="panel-body">
-                    <section class="sw-operation-description">
-                        
-                    </section>
-            
-                        
-                            <section class="sw-request-body">
-                                
-                                    <p><span class="label label-default">application/json</span> 
-                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <p><p>Creates a new payment request</p>
-                        </p>
-                                            </div>
-                                            <div class="col-md-6 sw-request-model">
-                            <div  class="panel panel-definition">
-                                <div class="panel-body">
-                                        
-                                                <section class="json-schema-properties">
-                                                    <dl>
-                                                            <dt data-property-name="address">
-                                                                <span class="json-property-name">address:</span>
-                                                                
-                                                                <span class="json-property-type">string</span>
-                                                                <span class="json-property-range" title="Value limits"></span>
-                                                                
-                                                                    <span class="json-property-required"></span>
-                                                            </dt>
-                                                            <dd>
-                                                                
-                                                                <div class="json-inner-schema">
-                                                                    
-                                                                </div>
-                                                            </dd>
-                                                            <dt data-property-name="amount">
-                                                                <span class="json-property-name">amount:</span>
-                                                                
-                                                                <span class="json-property-type">number</span>
-                                                                <span class="json-property-range" title="Value limits"></span>
-                                                                
-                                                                    <span class="json-property-required"></span>
-                                                            </dt>
-                                                            <dd>
-                                                                
-                                                                <div class="json-inner-schema">
-                                                                    
-                                                                </div>
-                                                            </dd>
-                                                            <dt data-property-name="callback">
-                                                                <span class="json-property-name">callback:</span>
-                                                                
-                                                                <span class="json-property-type">string</span>
-                                                                <span class="json-property-range" title="Value limits"></span>
-                                                                
-                                                            </dt>
-                                                            <dd>
-                                                                
-                                                                <div class="json-inner-schema">
-                                                                    
-                                                                </div>
-                                                            </dd>
-                                                            <dt data-property-name="confirmations">
-                                                                <span class="json-property-name">confirmations:</span>
-                                                                
-                                                                <span class="json-property-type">number</span>
-                                                                <span class="json-property-range" title="Value limits"></span>
-                                                                
-                                                            </dt>
-                                                            <dd>
-                                                                
-                                                                <div class="json-inner-schema">
-                                                                    
-                                                                </div>
-                                                            </dd>
-                                                            <dt data-property-name="userDefined">
-                                                                <span class="json-property-name">userDefined:</span>
-                                                                
-                                                                <span class="json-property-type">object</span>
-                                                                <span class="json-property-range" title="Value limits"></span>
-                                                                
-                                                            </dt>
-                                                            <dd>
-                                                                
-                                                                <div class="json-inner-schema">
-                                                                    
-                                                                </div>
-                                                            </dd>
-                                                    </dl>
-                                                </section>
-                                </div>
-                            </div></div>
-                                        </div>
-                            </section>        
-                    
-                        <section class="sw-responses">
-                                <p><span class="label label-default">application/json</span> 
-                    </p>
-                    
-                            <dl>
-                                    <dt class="sw-response-200">
-                                        200 OK
-                                    
-                                    </dt>
-                                    <dd class="sw-response-200">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>Payment Request Created Successfully</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                                <div  class="panel panel-definition">
-                                                    <div class="panel-body">
-                                                            
-                                                                    <section class="json-schema-properties">
-                                                                        <dl>
-                                                                                <dt data-property-name="sendToAddress">
-                                                                                    <span class="json-property-name">sendToAddress:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">string</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>The address to provide the user to send funds to</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="atomicAmount">
-                                                                                    <span class="json-property-name">atomicAmount:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">number</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>The atomic amount that the user needs to send to complete the request</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="startHeight">
-                                                                                    <span class="json-property-name">startHeight:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">number</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>The blockchain height that we will start looking for transactions to complete the request</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="endHeight">
-                                                                                    <span class="json-property-name">endHeight:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">number</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>The blockchain height that we will stop looking for transactions to complete the request</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="confirmations">
-                                                                                    <span class="json-property-name">confirmations:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">number</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>The number of confirmations that we will wait to pass once we find transactions destined for this request</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="qrCode">
-                                                                                    <span class="json-property-name">qrCode:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">string</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>A link to a QR code image that contains the required payment information to complete this request</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                                <dt data-property-name="userDefined">
-                                                                                    <span class="json-property-name">userDefined:</span>
-                                                                                    
-                                                                                    <span class="json-property-type">object</span>
-                                                                                    <span class="json-property-range" title="Value limits"></span>
-                                                                                    
-                                                                                </dt>
-                                                                                <dd>
-                                                                                    <p>A copy of the data you supplied in the optional userDefined field</p>
-                                                                    
-                                                                                    <div class="json-inner-schema">
-                                                                                        
-                                                                                    </div>
-                                                                                </dd>
-                                                                        </dl>
-                                                                    </section>
-                                                    </div>
-                                                </div></div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-400">
-                                        400 Bad Request
-                                    
-                                    </dt>
-                                    <dd class="sw-response-400">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>Client Sent an Invalid Request</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                                    <dt class="sw-response-500">
-                                        500 Internal Server Error
-                                    
-                                    </dt>
-                                    <dd class="sw-response-500">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p>Service failed to create the request in the platform</p>
-                                            
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                
-                                                <div class="col-md-6 sw-response-model">
-                                            </div>
-                                            
-                                            </div>                </dd>
-                            </dl>
-                        </section>
-                </div>
-            </div>
-    
-     
-    
-                       
-    
-</div>
-<script src="bundle.js" type="application/javascript"></script>
+  <div id="swagger-editor"></div>
+  <script src="./dist/swagger-editor-bundle.js"> </script>
+  <script src="./dist/swagger-editor-standalone-preset.js"> </script>
+  <script>
+  window.onload = function() {
+    // Build a system
+    const editor = SwaggerEditorBundle({
+      dom_id: '#swagger-editor',
+      layout: 'StandaloneLayout',
+      url: './swagger.json',
+      presets: [
+        SwaggerEditorStandalonePreset
+      ],
+      defaultModelsExpandDepth: -1
+    })
+
+    window.editor = editor
+  }
+  </script>
+
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">
+    <defs>
+      <symbol viewBox="0 0 20 20" id="unlocked">
+            <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V6h2v-.801C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8z"></path>
+      </symbol>
+
+      <symbol viewBox="0 0 20 20" id="locked">
+        <path d="M15.8 8H14V5.6C14 2.703 12.665 1 10 1 7.334 1 6 2.703 6 5.6V8H4c-.553 0-1 .646-1 1.199V17c0 .549.428 1.139.951 1.307l1.197.387C5.672 18.861 6.55 19 7.1 19h5.8c.549 0 1.428-.139 1.951-.307l1.196-.387c.524-.167.953-.757.953-1.306V9.199C17 8.646 16.352 8 15.8 8zM12 8H8V5.199C8 3.754 8.797 3 10 3c1.203 0 2 .754 2 2.199V8z"/>
+      </symbol>
+
+      <symbol viewBox="0 0 20 20" id="close">
+        <path d="M14.348 14.849c-.469.469-1.229.469-1.697 0L10 11.819l-2.651 3.029c-.469.469-1.229.469-1.697 0-.469-.469-.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-.469-.469-.469-1.228 0-1.697.469-.469 1.228-.469 1.697 0L10 8.183l2.651-3.031c.469-.469 1.228-.469 1.697 0 .469.469.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c.469.469.469 1.229 0 1.698z"/>
+      </symbol>
+
+      <symbol viewBox="0 0 20 20" id="large-arrow">
+        <path d="M13.25 10L6.109 2.58c-.268-.27-.268-.707 0-.979.268-.27.701-.27.969 0l7.83 7.908c.268.271.268.709 0 .979l-7.83 7.908c-.268.271-.701.27-.969 0-.268-.269-.268-.707 0-.979L13.25 10z"/>
+      </symbol>
+
+      <symbol viewBox="0 0 20 20" id="large-arrow-down">
+        <path d="M17.418 6.109c.272-.268.709-.268.979 0s.271.701 0 .969l-7.908 7.83c-.27.268-.707.268-.979 0l-7.908-7.83c-.27-.268-.27-.701 0-.969.271-.268.709-.268.979 0L10 13.25l7.418-7.141z"/>
+      </symbol>
+
+
+      <symbol viewBox="0 0 24 24" id="jump-to">
+        <path d="M19 7v4H5.83l3.58-3.59L8 6l-6 6 6 6 1.41-1.41L5.83 13H21V7z"/>
+      </symbol>
+
+      <symbol viewBox="0 0 24 24" id="expand">
+        <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+      </symbol>
+
+    </defs>
+  </svg>
+
 </body>
+
 </html>
