@@ -26,7 +26,7 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: ""
+          name: Request
           description: Creates a new payment request
           schema:
             type: object

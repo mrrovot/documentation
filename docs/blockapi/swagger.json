@@ -636,7 +636,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "",
+            "name": "Request",
             "description": "Provides a request for random outputs from the chain that meet the requirements",
             "schema": {
               "type": "object",
@@ -689,7 +689,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "",
+            "name": "Request",
             "description": "Provides a transaction that needs to be broadcast to the network",
             "schema": {
               "type": "object",
@@ -733,7 +733,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "",
+            "name": "Request",
             "description": "A syncronization request. Either lastKnownBlockHashes or scanHeight is required.",
             "schema": {
               "type": "object",

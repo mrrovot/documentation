@@ -423,7 +423,7 @@ paths:
       summary: Returns random outputs for transaction mixing
       parameters:
         - in: body
-          name: ""
+          name: Request
           description: Provides a request for random outputs from the chain that meet the requirements
           schema:
             type: object
@@ -458,7 +458,7 @@ paths:
       summary: Returns all the necessary information for a wallet to discover which outputs belong to it
       parameters:
         - in: body
-          name: ""
+          name: Request
           description: Provides a transaction that needs to be broadcast to the network
           schema:
             type: object
@@ -486,7 +486,7 @@ paths:
       summary: Returns all the necessary information for a wallet to discover which outputs belong to it
       parameters:
         - in: body
-          name: ""
+          name: Request
           description: A syncronization request. Either lastKnownBlockHashes or scanHeight is required.
           schema:
             type: object
