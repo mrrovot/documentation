@@ -598,6 +598,9 @@ definitions:
       timestamp:
         type: integer
         example: 1543009724
+      nonce:
+        type: integer
+        example: 3422693826
       tx_count:
         type: integer
         example: 2
