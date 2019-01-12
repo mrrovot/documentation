@@ -14,9 +14,9 @@ produces:
   - application/json
 host: 'blockapi.turtlepay.io'
 tags:
-  - name: Chain/Cache Information
-  - name: Block Information
-  - name: Transaction Information
+  - name: Chain/Cache
+  - name: Blocks
+  - name: Transactions
   - name: Wallet Operations
 schemes: 
   - https
@@ -24,7 +24,7 @@ paths:
   /amounts:
     get:
       tags:
-        - Chain/Cache Information
+        - Chain/Cache
       summary: Returns the current mixable amounts on the network
       responses:
         200:
@@ -49,7 +49,7 @@ paths:
   /height:
     get:
       tags:
-        - Chain/Cache Information
+        - Chain/Cache
       summary: Returns the blockchain cache current height
       responses:
         200:
@@ -68,7 +68,7 @@ paths:
   /info:
     get:
       tags:
-        - Chain/Cache Information
+        - Chain/Cache
       summary: Returns current network information regarding the underlying network node(s)
       responses:
         200:
@@ -158,7 +158,7 @@ paths:
   /supply:
     get:
       tags:
-        - Chain/Cache Information
+        - Chain/Cache
       summary: Returns the current circulating currency supply in TRTL
       produces:
         - text/plain
@@ -170,13 +170,40 @@ paths:
             example: 33090018087.69
         500:
           description: Internal Server Error
+  /block:
+    post:
+      tags:
+        - Blocks
+      summary: Submits a new block to the network
+      parameters:
+        - in: body
+          name: Request
+          schema:
+            type: object
+            required:
+              - block
+            properties:
+              block:
+                type: string
+                example: "0400850d6b0dcd9aee8adc27ddf2c0102cc7985d006bd7ca057d09313c6afe9f34580000829de8e1050000000000000000000000000000000000000000000000000000000000000000000000000100000000230321000000000000000000000000000000000000000000000000000000000000000000018ee14501ffe6e045050202e9567859b844305a8c33d36d7a31ac29a78b233dc00de39878c77e4b639d23b4f403024f44e842ba4d0aaade34ac03940da2dc6f8ae146f6948a8b240db947a661f3c280f104026d11bea76123efc53ab8e233252486c6bfb1cd499823d383a22711405cc6346580ea30027b64b9e6c9922387a1343d22c8040ae4a1b787ed7f3bfbeac92ba1b8356175fe80897a023cfa03f1fc506eb797116baa22f4d63425f2137fb9c1e3116f1ab5b6e0a6d54aeb01011f8b6c0e5635716d6446867cdc4dba0006989ec5440ef4804a44727bf713a2c702c8000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002baa8def39990827a71965b84d61be5d7db6a6270428d8e48d8eb8015d43f65f0e189e52e3fe9f0da5b04fed64effc070e1b97e32cb5445a4434a70eda8c6572f"
+      responses:
+        201:
+          description: Created
+        400:
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Wrong block blob
+        500:
+          description: Internal Server Error
   /block/count:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns the total number of blocks in the cache
-      produces:
-        - application/json
       responses:
         200:
           description: Block Count
@@ -188,10 +215,59 @@ paths:
                 example: 1129692
         500:
           description: Internal Server Error
+  /block/template:
+    post:
+      tags:
+        - Blocks
+      summary: Returns the current block template for mining operations
+      parameters:
+        - in: body
+          name: Request
+          schema:
+            type: object
+            required:
+              - address
+            properties:
+              reserveSize:
+                type: integer
+                example: 6
+                minimum: 0
+                maximum: 255
+              address:
+                type: string
+                example: TRTLv1pacKFJk9QgSmzk2LJWn14JGmTKzReFLz1RgY3K9Ryn7783RDT2TretzfYdck5GMCGzXTuwKfePWQYViNs4avKpnUbrwfQ
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              blocktemplate:
+                type: string
+                example: "0400728d06eb4625c9e01e38fa87f811edd77c67d80ca38489d7c27f31d3847c9a0e0000bfa6e8e105000000000000000000000000000000000000000000000000000000000000000000000000010000000023032100000000000000000000000000000000000000000000000000000000000000000001b9e14501ff91e145060802d6b857e662cc8338a2a7e06a79e4a8769f6d856fbf48165bd7c29ca2a843bb3b500260e76024a6c203bdde045eced089c3e0fcc902de0cdb485fd843224800db3687f4030276e8d5d2e85e1ece9bbe8f88ef58ea9f94debab42f0b55955abd2987c1bf3bbb80f1040292389822fc43ac0229c99f2fe9a0fbe13c77b57fd668dd8d9aa3db9abcf4d5f380ea30020b60d2efc8e00380b3533ea5b6e42a1c7253524b8892e40355fb60d4be6d45db80897a02c424ab20e84649acf3aea1e0415c67c8b93fbee04b82adf544a1a566b536818f29014e3481ff088c19c46394e3580d3add88974adcbe9aa6d5a39e1b9ff1e1b541ca020600000000000002652b22710fafc9ebd4abb37eaffb7d43b019f563166d6912f33eb584b51c4284eca996fe0020b65bc983cdfd06c997231f14a03a8c4028a03608a234f4f573d5"
+              difficulty:
+                type: integer
+                example: 4327799156
+              height:
+                type: integer
+                example: 1142929
+              reservedOffset:
+                type: integer
+                example: 376
+        400:
+          description: Bad Request
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Failed to parse wallet address
+        500:
+          description: Internal Server Error
   /block/{term}:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns the block information for the block with the specified hash or height
       parameters:
         - name: term
@@ -211,7 +287,7 @@ paths:
   /block/header/{term}:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns the block header for the block with the specified hash or height
       parameters:
         - name: term
@@ -231,7 +307,7 @@ paths:
   /block/header/top:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns the top block header
       responses:
         200:
@@ -243,7 +319,7 @@ paths:
   /block/headers/{height}:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns details regarding the 30 blocks preceeding the specified block including the specified block
       parameters:
         - name: height
@@ -265,7 +341,7 @@ paths:
   /block/headers/{height}/bulk:
     get:
       tags:
-        - Block Information
+        - Blocks
       summary: Returns details regarding the 1,000 blocks preceeding the specified block including the specified block
       parameters:
         - name: height
@@ -287,7 +363,7 @@ paths:
   /transaction/pool:
     get:
       tags:
-        - Transaction Information
+        - Transactions
       summary: Returns the transactions currently in the mempool
       responses:
         200:
@@ -314,7 +390,7 @@ paths:
   /transaction/{hash}:
     get:
       tags:
-        - Transaction Information
+        - Transactions
       summary: Returns details regarding the transaction with the specified hash
       parameters:
         - name: hash
@@ -333,7 +409,7 @@ paths:
   /transaction/{hash}/inputs:
     get:
       tags:
-        - Transaction Information
+        - Transactions
       summary: Returns the transcations inputs for the transaction with the specified hash
       parameters:
         - name: hash
@@ -356,7 +432,7 @@ paths:
   /transaction/{hash}/outputs:
     get:
       tags:
-        - Transaction Information
+        - Transactions
       summary: Returns the transcations outputs for the transaction with the specified hash
       parameters:
         - name: hash
@@ -379,7 +455,7 @@ paths:
   /transactions/{paymentId}:
     get:
       tags:
-        - Transaction Information
+        - Transactions
       summary: Returns the transcations hashes of all transactions with the specified paymentId
       parameters:
         - name: paymentId
