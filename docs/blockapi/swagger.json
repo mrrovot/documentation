@@ -31,6 +31,9 @@
     },
     {
       "name": "Wallet Operations"
+    },
+    {
+      "name": "Legacy Operations"
     }
   ],
   "schemes": [
@@ -895,6 +898,72 @@
           }
         }
       }
+    },
+    "/getwalletsyncdata": {
+      "post": {
+        "tags": [
+          "Legacy Operations"
+        ],
+        "summary": "Returns legacy wallet sync data for core TurtleCoin software",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Request",
+            "description": "A syncronization request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startHeight": {
+                  "type": "integer",
+                  "description": "The height to begin returning blocks from",
+                  "example": 1000
+                },
+                "startTimestamp": {
+                  "type": "integer",
+                  "description": "The timestamp to begin returning blocks from (unix style)",
+                  "example": 1547340327
+                },
+                "blockHashCheckpoints": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "0606a15147159e3f01dd90aa78828cf8587caed36203cd764701b56eb6ff6fd8",
+                    "1d61bf052ee2fa3720078ee01cf30e01ba305096bf3e3d3668fbc09bbeafa244"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Wallet%20Sync%20Data"
+                  }
+                },
+                "status": {
+                  "type": "string",
+                  "example": "OK"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1274,6 +1343,127 @@
         "type": {
           "type": "string",
           "example": "02"
+        }
+      }
+    },
+    "Wallet Sync Data": {
+      "properties": {
+        "blockHash": {
+          "type": "string",
+          "example": "221e7c19b11473c78694369945ef2b46d327255a3cf27e827c1da5a9971a4cbc"
+        },
+        "blockHeight": {
+          "type": "integer",
+          "example": 1106498
+        },
+        "blockTimestamp": {
+          "type": "integer",
+          "example": 1546214436
+        },
+        "coinbaseTX": {
+          "type": "object",
+          "properties": {
+            "hash": {
+              "type": "string",
+              "example": "6c2a9be4897d6b60b8c093bc3c7e24624910ae162f9b8d2b8c1f1b8156219e85"
+            },
+            "outputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer",
+                    "example": 6
+                  },
+                  "key": {
+                    "type": "string",
+                    "example": "d8d4d10e6d663b4bdad910b93141f6b289be6c091097bcb9f140c37d3f5df95e"
+                  }
+                }
+              }
+            },
+            "txPublicKey": {
+              "type": "string",
+              "example": "8770d63f4211bfe8f50c2344ee000e99c4023a9de382c36bfaa20846f71e8958"
+            },
+            "unlockTime": {
+              "type": "integer",
+              "example": 1106538
+            }
+          }
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hash": {
+                "type": "string",
+                "example": "f6316d35ab64080165c6c0476e9382306de3a5ff3367b32ac36acd0e0d374f40"
+              },
+              "inputs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "integer",
+                      "example": 90
+                    },
+                    "k_image": {
+                      "type": "string",
+                      "example": "bc8548a84bd1f0deed4f614d41022ad7f5cc15687e062eb3b29c4dfacb694dc9"
+                    },
+                    "key_offsets": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": [
+                          505604,
+                          1524,
+                          1,
+                          1
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "integer",
+                      "example": 6
+                    },
+                    "key": {
+                      "type": "string",
+                      "example": "d8d4d10e6d663b4bdad910b93141f6b289be6c091097bcb9f140c37d3f5df95e"
+                    },
+                    "globalIndex": {
+                      "type": "integer",
+                      "example": 1124145
+                    }
+                  }
+                }
+              },
+              "paymentID": {
+                "type": "string",
+                "example": ""
+              },
+              "txPublicKey": {
+                "type": "string",
+                "example": "01213035e9be3db80afa81e5d0d0305ffaad00513f0f3f38deff67d6bc9c3a6b"
+              },
+              "unlockTime": {
+                "type": "integer",
+                "example": 0
+              }
+            }
+          }
         }
       }
     }
