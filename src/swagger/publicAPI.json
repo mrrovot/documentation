@@ -1,8 +1,8 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
-    "version": "0.0.1",
+    "version": "0.0.1-oas3",
     "title": "TurtlePay Public API Interface",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -12,11 +12,6 @@
       "url": "https://opensource.org/licenses/AGPL-3.0"
     }
   },
-  "host": "api.turtlepay.io",
-  "basePath": "/v1",
-  "schemes": [
-    "https"
-  ],
   "tags": [
     {
       "name": "Payment Requests"
@@ -29,92 +24,54 @@
           "Payment Requests"
         ],
         "summary": "Creates a new payment request",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Request",
-            "description": "Creates a new payment request",
-            "schema": {
-              "type": "object",
-              "required": [
-                "address",
-                "amount"
-              ],
-              "properties": {
-                "address": {
-                  "type": "string",
-                  "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g"
-                },
-                "amount": {
-                  "type": "number",
-                  "example": 100
-                },
-                "callback": {
-                  "type": "string",
-                  "example": "https://webhook.site/8d2e1b19-d293-445a-b38e-9a2cd6d526a7"
-                },
-                "confirmations": {
-                  "type": "number",
-                  "example": 30,
-                  "default": 60
-                },
-                "userDefined": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "sendToAddress": {
-                  "type": "string",
-                  "description": "The address to provide the user to send funds to",
-                  "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP"
-                },
-                "atomicAmount": {
-                  "type": "number",
-                  "description": "The atomic amount that the user needs to send to complete the request",
-                  "example": 100
-                },
-                "startHeight": {
-                  "type": "number",
-                  "description": "The blockchain height that we will start looking for transactions to complete the request",
-                  "example": 1132510
-                },
-                "endHeight": {
-                  "type": "number",
-                  "description": "The blockchain height that we will stop looking for transactions to complete the request",
-                  "example": 1132570
-                },
-                "confirmations": {
-                  "type": "number",
-                  "description": "The number of confirmations that we will wait to pass once we find transactions destined for this request",
-                  "example": 30
-                },
-                "qrCode": {
-                  "type": "string",
-                  "description": "A link to a QR code image that contains the required payment information to complete this request",
-                  "example": "https://chart.googleapis.com/chart?cht=qr&chs=256x256&chl=turtlecoin://TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP?amount=100"
-                },
-                "userDefined": {
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
-                  "description": "A copy of the data you supplied in the optional userDefined field"
-                },
-                "callbackPublicKey": {
-                  "type": "string",
-                  "description": "The Public Key of the Private Key the platform uses to sign callback messages",
-                  "example": "2d2d2d2d2d424547494e205055424c4943204b45592d2d2d2d2d0a4d494942496a414e42676b71686b6947397730424151454641414f43415138414d49494243674b434151454171393146373874724f377957326b5170343455760a3530734c7834376d32326473695a31474c38685a47592b707a78673744733449434973372f6b6b457448345548474e425357514e707235487a564d57316d4b720a756244334a694e513954724e4c644857494a7459456a70497a71514a5144484e69527a6c32352b434f3131645245705a736c78567944477534456430683072540a6947477669457656432b4a75796979476a42536c6c4f4f6a72303850656f7538434b6f54443546636e46667049457738735969775133793034506a665a4b665a0a4a486f4148474d467347427862627865726b543543735566444f50346851302f61414357626a42533874427943496770767842357874386c6e656a67717731620a535362673777593237383548753848764b38644d504d554566686f4e616c5347436b416a31692b5362344d696a4533454c44714f30583455324174574a4b42720a77774944415141420a2d2d2d2d2d454e44205055424c4943204b45592d2d2d2d2d"
+                  "properties": {
+                    "sendToAddress": {
+                      "type": "string",
+                      "description": "The address to provide the user to send funds to",
+                      "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP"
+                    },
+                    "atomicAmount": {
+                      "type": "number",
+                      "description": "The atomic amount that the user needs to send to complete the request",
+                      "example": 100
+                    },
+                    "startHeight": {
+                      "type": "number",
+                      "description": "The blockchain height that we will start looking for transactions to complete the request",
+                      "example": 1132510
+                    },
+                    "endHeight": {
+                      "type": "number",
+                      "description": "The blockchain height that we will stop looking for transactions to complete the request",
+                      "example": 1132570
+                    },
+                    "confirmations": {
+                      "type": "number",
+                      "description": "The number of confirmations that we will wait to pass once we find transactions destined for this request",
+                      "example": 30
+                    },
+                    "qrCode": {
+                      "type": "string",
+                      "description": "A link to a QR code image that contains the required payment information to complete this request",
+                      "example": "https://chart.googleapis.com/chart?cht=qr&chs=256x256&chl=turtlecoin://TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP?amount=100"
+                    },
+                    "userDefined": {
+                      "type": "object",
+                      "description": "A copy of the data you supplied in the optional userDefined field"
+                    },
+                    "callbackPublicKey": {
+                      "type": "string",
+                      "description": "The Public Key of the Private Key the platform uses to sign callback messages",
+                      "example": "2d2d2d2d2d424547494e205055424c4943204b45592d2d2d2d2d0a4d494942496a414e42676b71686b6947397730424151454641414f43415138414d49494243674b434151454171393146373874724f377957326b5170343455760a3530734c7834376d32326473695a31474c38685a47592b707a78673744733449434973372f6b6b457448345548474e425357514e707235487a564d57316d4b720a756244334a694e513954724e4c644857494a7459456a70497a71514a5144484e69527a6c32352b434f3131645245705a736c78567944477534456430683072540a6947477669457656432b4a75796979476a42536c6c4f4f6a72303850656f7538434b6f54443546636e46667049457738735969775133793034506a665a4b665a0a4a486f4148474d467347427862627865726b543543735566444f50346851302f61414357626a42533874427943496770767842357874386c6e656a67717731620a535362673777593237383548753848764b38644d504d554566686f4e616c5347436b416a31692b5362344d696a4533454c44714f30583455324174574a4b42720a77774944415141420a2d2d2d2d2d454e44205055424c4943204b45592d2d2d2d2d"
+                    }
+                  }
                 }
               }
             }
@@ -125,6 +82,359 @@
           "500": {
             "description": "Internal Server Failure"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "address",
+                  "amount"
+                ],
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "callback": {
+                    "type": "string",
+                    "example": "https://webhook.site/8d2e1b19-d293-445a-b38e-9a2cd6d526a7"
+                  },
+                  "confirmations": {
+                    "type": "number",
+                    "example": 30,
+                    "default": 60
+                  },
+                  "userDefined": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Creates a new payment request"
+        },
+        "callbacks": {
+          "receivedFunds": {
+            "{$request.body#/callback}": {
+              "post": {
+                "summary": "Called when at least the requested funds have been sent to the specified wallet and enough confirmations have completed.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP",
+                            "description": "The address where the user should send funds"
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 100,
+                            "description": "Continue"
+                          },
+                          "request": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g",
+                                "description": "The address where we will be sending funds to"
+                              },
+                              "amount": {
+                                "type": "number",
+                                "example": 100,
+                                "description": "The amount of funds requested"
+                              },
+                              "userDefined": {
+                                "type": "object",
+                                "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 100,
+                            "description": "The amount received into the temporary wallet created for this request"
+                          },
+                          "signature": {
+                            "type": "string",
+                            "example": "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817",
+                            "description": "The digital signature of this message that can be verified with the public key supplied in the original response to the request."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "inProgress": {
+            "{$request.body#/callback}": {
+              "post": {
+                "summary": "Called when we have received funds for the request; however, we have not received all the funds requested or the funds have not reached the required confirmation depth.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP",
+                            "description": "The address where the user should send funds"
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 102,
+                            "description": "Continue"
+                          },
+                          "request": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g",
+                                "description": "The address where we will be sending funds to"
+                              },
+                              "amount": {
+                                "type": "number",
+                                "example": 100,
+                                "description": "The amount of funds requested"
+                              },
+                              "userDefined": {
+                                "type": "object",
+                                "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 100,
+                            "description": "The amount received into the temporary wallet created for this request"
+                          },
+                          "confirmationsRemaining": {
+                            "type": "number",
+                            "example": 10,
+                            "description": "The number of block confirmations remaining for the requested funds"
+                          },
+                          "blocksRemaining": {
+                            "type": "number",
+                            "example": 10,
+                            "description": "The number of blocks which we will continue to scan for funds"
+                          },
+                          "signature": {
+                            "type": "string",
+                            "example": "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817",
+                            "description": "The digital signature of this message that can be verified with the public key supplied in the original response to the request."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "sentFunds": {
+            "{$request.body#/callback}": {
+              "post": {
+                "summary": "Called when at least the requested funds have been sent to the specified wallet and enough confirmations have completed.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP",
+                            "description": "The address where the user should send funds"
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 200,
+                            "description": "Continue"
+                          },
+                          "request": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g",
+                                "description": "The address where we will be sending funds to"
+                              },
+                              "amount": {
+                                "type": "number",
+                                "example": 100,
+                                "description": "The amount of funds requested"
+                              },
+                              "userDefined": {
+                                "type": "object",
+                                "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "transactionHash": {
+                            "type": "string",
+                            "example": "6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99",
+                            "description": "The transaction hash for the transaction that sends the funds to the requested wallet"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 100,
+                            "description": "The amount received into the temporary wallet created for this request"
+                          },
+                          "signature": {
+                            "type": "string",
+                            "example": "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817",
+                            "description": "The digital signature of this message that can be verified with the public key supplied in the original response to the request."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "notEnoughFunds": {
+            "{$request.body#/callback}": {
+              "post": {
+                "summary": "Called when we have received funds for the request; however, there are not enough funds available to forward the funds (due to the network transaction fee) to forward the funds to the requested wallet.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP",
+                            "description": "The address where the user should send funds"
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 402,
+                            "description": "Continue"
+                          },
+                          "request": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g",
+                                "description": "The address where we will be sending funds to"
+                              },
+                              "amount": {
+                                "type": "number",
+                                "example": 100,
+                                "description": "The amount of funds requested"
+                              },
+                              "userDefined": {
+                                "type": "object",
+                                "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "signature": {
+                            "type": "string",
+                            "example": "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817",
+                            "description": "The digital signature of this message that can be verified with the public key supplied in the original response to the request."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          },
+          "walletTimeout": {
+            "{$request.body#/callback}": {
+              "post": {
+                "summary": "Called when the wallet created for the request times out as no funds were received into the wallet within the alloted time.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "address": {
+                            "type": "string",
+                            "example": "TRTLv2uxbWyZ4DM5BLo5fURdzapJ3U6nHMMDst5RjkrR4Yy2ZL3r5EC7nXGmq5x2fAQbdGKLFaMNRRasGRrS2WhRWHDkNQ7qaDP",
+                            "description": "The address where the user should send funds"
+                          },
+                          "status": {
+                            "type": "number",
+                            "example": 408,
+                            "description": "Request Timed Out"
+                          },
+                          "request": {
+                            "type": "object",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g",
+                                "description": "The address where we would have sent funds to"
+                              },
+                              "amount": {
+                                "type": "number",
+                                "example": 100,
+                                "description": "The amount of funds requested"
+                              },
+                              "userDefined": {
+                                "type": "object",
+                                "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "signature": {
+                            "type": "string",
+                            "example": "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817",
+                            "description": "The digital signature of this message that can be verified with the public key supplied in the original response to the request."
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "OK"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -132,5 +442,10 @@
   "externalDocs": {
     "description": "TurtlePay GitHub Organization",
     "url": "https://github.com/TurtlePay"
-  }
+  },
+  "servers": [
+    {
+      "url": "https://api.turtlepay.io/v1"
+    }
+  ]
 }
