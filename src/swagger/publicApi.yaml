@@ -232,7 +232,7 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        transactionHash:
+                        txnHash:
                           type: string
                           example: 6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99
                           description: The transaction hash for the transaction that sends the funds to the requested wallet
