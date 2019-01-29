@@ -927,6 +927,9 @@ definitions:
                 key:
                   type: string
                   example: "d8d4d10e6d663b4bdad910b93141f6b289be6c091097bcb9f140c37d3f5df95e"
+                globalIndex:
+                  type: integer
+                  example: 269142
           txPublicKey:
             type: string
             example: "8770d63f4211bfe8f50c2344ee000e99c4023a9de382c36bfaa20846f71e8958"

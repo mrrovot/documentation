@@ -1379,6 +1379,10 @@
                   "key": {
                     "type": "string",
                     "example": "d8d4d10e6d663b4bdad910b93141f6b289be6c091097bcb9f140c37d3f5df95e"
+                  },
+                  "globalIndex": {
+                    "type": "integer",
+                    "example": 269142
                   }
                 }
               }
