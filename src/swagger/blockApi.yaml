@@ -593,6 +593,57 @@ paths:
           description: Bad Request
         404:
           description: Not Found
+  /get_transactions_status:
+    post:
+      tags:
+        - Legacy Operations
+      summary: Returns the statuses of the supplied transactions
+      parameters:
+        - in: body
+          name: Request
+          description: A transaction status request
+          schema:
+            type: object
+            properties:
+              transactionHashes:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "afbe61d9b4795806987f47bc3b984533e88fcaf588f18f892cf307cd78da0788"
+                  - "2851c17fa2411b94ca432734789fa2b905dbb7edde4d4c82c27586cfebd5f9ec"
+                  - "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              transactionsInPool:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "2851c17fa2411b94ca432734789fa2b905dbb7edde4d4c82c27586cfebd5f9ec"
+              transactionsInBlock:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "afbe61d9b4795806987f47bc3b984533e88fcaf588f18f892cf307cd78da0788"
+              transactionsUnknown:
+                type: array
+                items:
+                  type: string
+                example:
+                  - "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+              status:
+                type: string
+                example: OK
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
   /getwalletsyncdata:
     post:
       tags:
@@ -955,15 +1006,6 @@ definitions:
                   k_image:
                     type: string
                     example: "bc8548a84bd1f0deed4f614d41022ad7f5cc15687e062eb3b29c4dfacb694dc9"
-                  key_offsets:
-                    type: array
-                    items:
-                      type: string
-                      example:
-                        - 505604
-                        - 1524
-                        - 1
-                        - 1
             outputs:
               type: array
               items:
