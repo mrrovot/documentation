@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
-    "version": "0.0.1-oas3",
+    "version": "0.0.2-oas3",
     "title": "TurtlePay Public API Interface",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -285,7 +285,7 @@
                               "amount": {
                                 "type": "number",
                                 "example": 100,
-                                "description": "The amount of funds requested"
+                                "description": "DEPRECATED - The amount of funds received"
                               },
                               "userDefined": {
                                 "type": "object",
@@ -298,10 +298,40 @@
                             "example": "6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99",
                             "description": "The transaction hash for the transaction that sends the funds to the requested wallet"
                           },
-                          "amount": {
+                          "amountReceived": {
                             "type": "number",
                             "example": 100,
+                            "description": "The amount of funds received"
+                          },
+                          "amountSent": {
+                            "type": "number",
+                            "example": 90,
+                            "description": "The amount of funds sent on to the requestor (amount received minus network transaction fee)"
+                          },
+                          "networkFee": {
+                            "type": "number",
+                            "example": 10,
+                            "description": "The network fee paid for sending the funds to the requestor"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "example": 90,
                             "description": "The amount received into the temporary wallet created for this request"
+                          },
+                          "keys": {
+                            "type": "object",
+                            "properties": {
+                              "privateSpendKey": {
+                                "type": "string",
+                                "example": "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b",
+                                "description": "The private spend key of the one-time use wallet"
+                              },
+                              "privateViewKey": {
+                                "type": "string",
+                                "example": "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d",
+                                "description": "The private view key of the one-time use wallet"
+                              }
+                            }
                           },
                           "signature": {
                             "type": "string",
@@ -414,6 +444,21 @@
                               "userDefined": {
                                 "type": "object",
                                 "description": "Any additional information supplied in the creation of the request"
+                              }
+                            }
+                          },
+                          "keys": {
+                            "type": "object",
+                            "properties": {
+                              "privateSpendKey": {
+                                "type": "string",
+                                "example": "886e03f06780964fd1e625b51382e571fa141c86f9ea6128f363fb217fdfaf0b",
+                                "description": "The private spend key of the one-time use wallet"
+                              },
+                              "privateViewKey": {
+                                "type": "string",
+                                "example": "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d",
+                                "description": "The private view key of the one-time use wallet"
                               }
                             }
                           },
