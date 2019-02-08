@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
-    "version": "0.0.2-oas3",
+    "version": "0.0.3-oas3",
     "title": "TurtlePay Public API Interface",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -297,6 +297,11 @@
                             "type": "string",
                             "example": "6219af887d59f796862258fcc4712db076cefbd3f41ad52ad753a45029414f99",
                             "description": "The transaction hash for the transaction that sends the funds to the requested wallet"
+                          },
+                          "txnPrivateKey": {
+                            "type": "string",
+                            "example": "1213a7d8d37dc01e59ec872f438e0c63ff48cf388ab29dbd6d4b498c7e831e05",
+                            "description": "The transaction private key for the transaction that sends the funds to the requested wallet"
                           },
                           "amountReceived": {
                             "type": "number",
