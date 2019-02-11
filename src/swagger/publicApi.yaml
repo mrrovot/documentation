@@ -203,7 +203,7 @@ paths:
         sentFunds:
           '{$request.body#/callback}':
             post:
-              summary: Called when at least the requested funds have been sent to the specified wallet and enough confirmations have completed.
+              summary: Called when we relay funds to the specified wallet.
               requestBody:
                 content:
                   application/json:
