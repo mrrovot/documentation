@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC
     calls.
-  version: "0.0.2-oas3"
+  version: "0.0.3-oas3"
   title: TurtlePay Blockchain Cache API
   contact:
     email: turtlepay@protonmail.com
@@ -831,8 +831,8 @@ components:
                 extra:
                   type: string
                 unlock_time:
-                  type: integer
-                  example: 0
+                  type: string
+                  example: "1106538"
                 nonce:
                   type: string
                 publicKey:
@@ -1000,8 +1000,8 @@ components:
                 example: >-
                   00a45147725a871df09e1bd73a543d0eb95d81c158077da2dadde089f89016d0
               unlockTime:
-                type: integer
-                example: 0
+                type: string
+                example: "1106538"
               paymentId:
                 type: string
                 example: >-
@@ -1120,8 +1120,8 @@ components:
               type: string
               example: 8770d63f4211bfe8f50c2344ee000e99c4023a9de382c36bfaa20846f71e8958
             unlockTime:
-              type: integer
-              example: 1106538
+              type: string
+              example: "1106538"
         transactions:
           type: array
           items:
@@ -1166,5 +1166,5 @@ components:
                 example: >-
                   01213035e9be3db80afa81e5d0d0305ffaad00513f0f3f38deff67d6bc9c3a6b
               unlockTime:
-                type: integer
-                example: 0
+                type: string
+                example: "1106538"
