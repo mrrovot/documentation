@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC calls.",
-    "version": "0.0.3-oas3",
+    "version": "0.0.4-oas3",
     "title": "TurtlePay Blockchain Cache API",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -69,6 +69,55 @@
           },
           "404": {
             "description": "Mixable amounts not found"
+          }
+        }
+      }
+    },
+    "/chain/stats": {
+      "get": {
+        "tags": [
+          "Chain/Cache"
+        ],
+        "summary": "Returns block statistics for the last 2,880 (1 day) blocks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "maxItems": 2880,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "timestamp": {
+                        "type": "integer",
+                        "example": 1551194293
+                      },
+                      "difficulty": {
+                        "type": "integer",
+                        "example": 5652826471
+                      },
+                      "nonce": {
+                        "type": "integer",
+                        "example": 2684423497
+                      },
+                      "size": {
+                        "type": "integer",
+                        "example": 428
+                      },
+                      "txnCount": {
+                        "type": "integer",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
