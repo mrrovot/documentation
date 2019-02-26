@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     platform for creating and completing payment requests on the TurtleCoin
     network.
-  version: "0.0.3-oas3"
+  version: "0.0.4-oas3"
   title: TurtlePay Public API Interface
   contact:
     email: turtlepay@protonmail.com
@@ -142,10 +142,6 @@ paths:
                           type: number
                           example: 100
                           description: The amount received into the temporary wallet created for this request
-                        signature:
-                          type: string
-                          example: "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817"
-                          description: The digital signature of this message that can be verified with the public key supplied in the original response to the request.
               responses:
                 '200':
                   description: OK
@@ -193,10 +189,6 @@ paths:
                           type: number
                           example: 10
                           description: The number of blocks which we will continue to scan for funds
-                        signature:
-                          type: string
-                          example: "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817"
-                          description: The digital signature of this message that can be verified with the public key supplied in the original response to the request.
               responses:
                 '200':
                   description: OK
@@ -267,10 +259,6 @@ paths:
                               type: string
                               example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
                               description: The private view key of the one-time use wallet
-                        signature:
-                          type: string
-                          example: "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817"
-                          description: The digital signature of this message that can be verified with the public key supplied in the original response to the request.
               responses:
                 '200':
                   description: OK
@@ -306,10 +294,6 @@ paths:
                             userDefined:
                               type: object
                               description: Any additional information supplied in the creation of the request
-                        signature:
-                          type: string
-                          example: "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817"
-                          description: The digital signature of this message that can be verified with the public key supplied in the original response to the request.
               responses:
                 '200':
                   description: OK
@@ -356,13 +340,10 @@ paths:
                               type: string
                               example: "80ec1f056c95f0dacebb95ff5ff82eafde9b89380a4feeecdecc80e70789ce0d"
                               description: The private view key of the one-time use wallet
-                        signature:
-                          type: string
-                          example: "717a4eceba027c6231b519fc64797fdf24c362002bb724df76ac880ca65a9e2157ed3c18c41b84d55124c506ed7d7777e83310095b353c10a5068b4c421624e1913eceeba19251689bc2da2232dd05e1f1124473b4598d5f0506ff88c0f7f09453f94a7ade4f9f719ed61767c4d2bd35764b4a17395082a33b44a58b33f3544bcb25d3eb86d15d9511f91c9e78c82fc345d39816eabc518b542355c6d72e7786d9145819e74ae2865209bee430cfbcd3a7e3bcf32a00d046057d53191e06b59a2ea29eebdda75cc76341378d13169a6bec4d716c74eacb33750023a461fb4d73a7f8f75ac92a80865370214fc017e3ff63c7f30898004d73957a337f208be817"
-                          description: The digital signature of this message that can be verified with the public key supplied in the original response to the request.
               responses:
                 200:
                   description: OK
+
 externalDocs:
   description: TurtlePay GitHub Organization
   url: 'https://github.com/TurtlePay'
