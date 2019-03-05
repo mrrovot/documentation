@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
-    "version": "0.0.4-oas3",
+    "version": "0.0.5-oas3",
     "title": "TurtlePay Public API Interface",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -95,20 +95,29 @@
                 "properties": {
                   "address": {
                     "type": "string",
+                    "description": "The address that we need to send the funds of the transaction to once they are sent to us",
                     "example": "TRTLuxN6FVALYxeAEKhtWDYNS9Vd9dHVp3QHwjKbo76ggQKgUfVjQp8iPypECCy3MwZVyu89k1fWE2Ji6EKedbrqECHHWouZN6g"
                   },
                   "amount": {
                     "type": "number",
+                    "description": "The amount requested in atomic units",
                     "example": 100
                   },
                   "callback": {
                     "type": "string",
+                    "description": "The URL to which we should post our callback responses",
                     "example": "https://webhook.site/8d2e1b19-d293-445a-b38e-9a2cd6d526a7"
                   },
                   "confirmations": {
                     "type": "number",
+                    "description": "The number of confirmations we should wait for before relaying the funds and providing the appropriate callback response",
                     "example": 30,
                     "default": 60
+                  },
+                  "name": {
+                    "type": "string",
+                    "default": null,
+                    "description": "If supplied, will be appended to the end of the QR code URL supplied as ?name=<name>"
                   },
                   "userDefined": {
                     "type": "object"
