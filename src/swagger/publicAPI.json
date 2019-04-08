@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "description": "This document outlines the public API methods available using the TurtlePay platform for creating and completing payment requests on the TurtleCoin network.",
-    "version": "0.0.6-oas3",
+    "version": "0.0.7-oas3",
     "title": "TurtlePay Public API Interface",
     "contact": {
       "email": "turtlepay@protonmail.com"
@@ -99,6 +99,10 @@
                     "type": "string",
                     "description": "The encrypted button payload as supplied by the new button request",
                     "example": "c1df46ee8382363a0f543588609d2df0821552a8d01419c3c1123e3379471f4b914c2b8738386149338c423559ac0827116627ee181ed317cb6d8c30d52050d19d73d4e328f025ed125f87347a79465ab932630e4df937864d2d82b8704cfef4c1dfd3bb52cdcb87eb11c5067cce0f14588540134b772ca37c9072466977ebfff2a11e5abedccacd52c706c44f82908dc74b379d496101b1f6d004ea3a6f1dcfa9cb4501353a76f71fe953bf4d4d82e16cef7c22bd76cebc837d3cbffb99012f84c84606df82188422b1490c6ccfece5290cd3a2ac58720a0286fa2f63f8a2eab657e78a01d852d533dd8ace519f03ddcf476f8b0a3ae9f1b3a12c489da100890de01397f5e4fdcdcacb7b9cfea9ff90"
+                  },
+                  "userDefined": {
+                    "type": "object",
+                    "description": "A copy of the data you supplied in the optional userDefined field"
                   }
                 }
               }
