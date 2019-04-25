@@ -4,7 +4,7 @@ info:
     This document outlines the public API methods available using the TurtlePay
     Blockchain Cache API which is a replacement for normal TurtleCoin daemon RPC
     calls.
-  version: "0.0.4-oas3"
+  version: "0.0.5-oas3"
   title: TurtlePay Blockchain Cache API
   contact:
     email: turtlepay@protonmail.com
@@ -760,6 +760,77 @@ paths:
                     - >-
                       ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
         description: A transaction status request
+  /getwalletsyncdata/{height}:
+    get:
+      tags:
+        - Legacy Operations
+      summary: Returns legacy wallet sync data for core TurtleCoin software up to 100 blocks
+      parameters:
+        - in: path
+          name: height
+          schema:
+            type: integer
+          required: true
+          example: 1100500
+          description: The height to start returning blocks for
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Wallet_Sync_Data'
+                  status:
+                    type: string
+                    example: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /getwalletsyncdata/{height}/{blockCount}:
+    get:
+      tags:
+        - Legacy Operations
+      summary: Returns legacy wallet sync data for core TurtleCoin software
+      parameters:
+        - in: path
+          name: height
+          schema:
+            type: integer
+          required: true
+          example: 1100500
+          description: The height to start returning blocks for
+        - in: path
+          name: blockCount
+          schema:
+            type: integer
+          description: The maximum number of blocks to return
+          example: 100
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Wallet_Sync_Data'
+                  status:
+                    type: string
+                    example: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
   /getwalletsyncdata:
     post:
       tags:
@@ -777,6 +848,59 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Wallet_Sync_Data'
+                  status:
+                    type: string
+                    example: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startHeight:
+                  type: integer
+                  description: The height to begin returning blocks from
+                  example: 1000
+                startTimestamp:
+                  type: integer
+                  description: The timestamp to begin returning blocks from (unix style)
+                  example: 1547340327
+                blockHashCheckpoints:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - >-
+                      0606a15147159e3f01dd90aa78828cf8587caed36203cd764701b56eb6ff6fd8
+                    - >-
+                      1d61bf052ee2fa3720078ee01cf30e01ba305096bf3e3d3668fbc09bbeafa244
+        description: A syncronization request
+  /getwalletsyncdata/preflight:
+    post:
+      tags:
+        - Legacy Operations
+      summary: Returns preflight information for legacy wallet sync operations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  height:
+                    type: integer
+                    description: The height of the next block to sync
+                    example: 1438743
+                  blockCount:
+                    type: integer
+                    description: How many blocks to sync remaining there are
+                    maximum: 100
+                    example: 5
                   status:
                     type: string
                     example: OK
